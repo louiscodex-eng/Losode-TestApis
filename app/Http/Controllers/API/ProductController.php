@@ -24,13 +24,13 @@ class ProductController extends Controller
      */
     public function GetActiveProducts(Request $request) {
         try {
-            // The service now returns a paginated object instead of a simple collection
+            
             $products = $this->productService->getAllActiveProducts($request->query('search'));
             
             return response()->json([
                 'status' => 'success',
                 'message' => 'Products retrieved successfully',
-                // 'data' will now contain: data, current_page, first_page_url, last_page, etc.
+           
                 'data' => $products
             ], 200);
 

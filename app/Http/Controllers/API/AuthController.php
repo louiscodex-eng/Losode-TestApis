@@ -22,12 +22,12 @@ class AuthController extends Controller
    public function register(Request $request)
 {
     try {
-        // 1. Validation (Laravel throws a ValidationException automatically if this fails)
+        // 1. Validation 
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:8|confirmed',
-            'role' => 'required|in:vendor,customer', // Required role field
+            'role' => 'required|in:vendor,customer', 
         ]);
 
         // 2. Map to DTO
@@ -35,7 +35,7 @@ class AuthController extends Controller
             $request->name, 
             $request->email, 
             $request->password,
-            $request->role ?? 'customer' // default to 'customer' if role is not provided
+            $request->role ?? 'customer' 
         );
 
         // 3. Call Service
@@ -49,14 +49,14 @@ class AuthController extends Controller
         ], 201);
 
     } catch (\Illuminate\Validation\ValidationException $e) {
-        // Specifically catch validation errors (like "email already taken")
+        // Specifically catch validation errors 
         return response()->json([
             'status' => 'error',
             'message' => $e->errors(),
         ], 422);
 
     } catch (\Exception $e) {
-        // Catch everything else (Database connection issues, Supabase errors, etc.)
+      
         return response()->json([
             'status' => 'error',
             'message' => $e->getMessage()

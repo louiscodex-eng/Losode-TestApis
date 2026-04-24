@@ -28,7 +28,7 @@ class OrderController extends Controller
             ]);
 
             $order = $this->orderService->placeOrder(
-                Auth::id(), // Mock user or authenticated user
+                Auth::id(), 
                 $request->product_id,
                 $request->quantity
             );
@@ -36,7 +36,7 @@ class OrderController extends Controller
             return response()->json([
                 'status' => 'success',
                 'message' => 'Order placed successfully',
-                'data' => $order->load('product') // Eager load product details
+                'data' => $order->load('product') 
             ], 201);
 
         } catch (\Exception $e) {

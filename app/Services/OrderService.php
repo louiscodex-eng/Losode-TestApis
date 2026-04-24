@@ -17,8 +17,7 @@ class OrderService
     {
         return DB::transaction(function () use ($userId, $productId, $quantity) {
             
-            // 1. Pessimistic Lock: Prevent other processes from reading/writing this row
-            // until this transaction finishes. This solves the "Concurrency" requirement.
+            // 1. Lock the product row for update to prevent
             $product = Product::where('id', $productId)->lockForUpdate()->first();
 
             if (!$product) {
